@@ -1,31 +1,48 @@
 package by.yudchits.binarySearch;
 
-import java.util.Arrays;
+import java.util.Scanner;
 
 public class BinarySearch {
     public static void main(String[] args) {
-        int[] array = new int[128];
+        Scanner sc = new Scanner(System.in);
+
+        int length;
+        do {
+            System.out.print("Enter array`s length: ");
+            while (!sc.hasNextInt()) {
+                System.out.print("Error! Try again: ");
+                sc.next();
+            }
+            length = sc.nextInt();
+        }while (length<1);
+
+        int[] array = new int[length];
 
         for (int i = 0; i < array.length; i++) {
             array[i] = i + 1;
         }
 
-        System.out.println(Arrays.toString(array));
+        System.out.print("Enter a value: ");
+        while(!sc.hasNextInt()){
+            System.out.print("Error! Try again: ");
+            sc.next();
+        }
+        int value = sc.nextInt();
 
-        int index = binarySearch(array, 64);
+        sc.close();
 
-        System.out.println("index of 64 is " + index);
+        System.out.println("index of "+value+" is " + binarySearch(array,value));
     }
 
-    public static int binarySearch(int[] array, int value) {
+    public static Integer binarySearch(int[] array, int value) {
         int low = 0;
         int high = array.length - 1;
-
 
         while (low <= high) {
             int middle = (low + high)/2;
 
-            if(array[middle] == value) return middle;
+            if(array[middle] == value)
+                return middle;
 
             if (array[middle] < value) {
                 low = middle+1;
@@ -33,6 +50,6 @@ public class BinarySearch {
             else high = middle-1;
         }
 
-        return -1;
+        return null;
     }
 }
